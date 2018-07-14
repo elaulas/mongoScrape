@@ -1,7 +1,7 @@
 var scrape = require('../scripts/scrape');
 var makeDate = require('../scripts/data')
 
-var Headline = require('../models/Headline');
+var Headline = require('../models/Headlines');
 
 module.exports = {
     fetch: (cb) => {
@@ -16,7 +16,7 @@ module.exports = {
                 cb(err, docs);
             });
         });
-    };
+    },
         delete: (query, cb) => {
             Headline.remove(query, cb);
         },
