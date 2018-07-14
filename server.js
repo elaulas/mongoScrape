@@ -13,6 +13,8 @@ var app = express();
 // Set up an Express Router
 var router = express.Router();
 
+require('./config/routes')(router);
+
 // Designate our public folder as a static director
 app.use(express.static(__dirname + '/public'));
 
@@ -20,6 +22,7 @@ app.use(express.static(__dirname + '/public'));
 app.engine('handlebars', expressHandleBars({
     defaultLayout: 'main'
 }));
+app.set('view engine', 'handlebars');
 
 // Use bodyParser in our app
 app.use(bodyParser.urlencoded({
