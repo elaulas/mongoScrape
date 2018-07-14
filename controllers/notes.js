@@ -16,7 +16,7 @@ module.exports = {
         noteText: data.noteText
     };
 
-    Note.create(newNote, (err, doc) {
+    Note.create(newNote, (err, doc) => s{
         if (err) {
             console.log(err);
         } else {

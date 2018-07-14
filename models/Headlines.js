@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var headlineSchema = new Schema({
-    headling: {
+    headline: {
         type: String,
         required: true,
         unique: true
@@ -13,7 +13,7 @@ var headlineSchema = new Schema({
         required: true
     },
     date: String,
-    save: {
+    saved: {
         type: Boolean,
         default: false
     }
