@@ -1,4 +1,4 @@
-var makeDate = () => {
+var makeDate = function() {
     var d = new Date();
     var formattedDate = '';
 

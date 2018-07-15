@@ -1,72 +1,73 @@
 // Server routes
 
 var scrape = require('../scripts/scrape');
-var headlinesController = require('../controllers/headlines');
 
+var headlinesController = require('../controllers/headlines');
+var notesController = require('../controllers/notes')
 
 module.exports = function(router) {
     // this route renders the homepage
-    router.get('/', (req, res) => {
+    router.get('/', function(req, res) {
         res.render('home');
     });
     // this rout renders the saved handlebar page
-    router.get('/saved', (req, res) => {
+    router.get('/saved', function(req, res) {
         res.render('saved');
     });
 
-    router.get('/api/fetch', (req, res) => {
-        headlinesController.fetch((err, docs) => {
+    router.get('/api/fetch', function(req, res) {
+        headlinesController.fetch(function(err, docs) {
             if (!docs || docs.insertedCount === 0) {
                 res.json({
                     message: 'There is nothing new today, surely there will be more tomorrow.'
                 });
             } else {
                 res.json({
-                    message: "Added" + docs.insertedCount + " new article!"
+                    message: "Added" + docs.insertedCount + " new articles!"
                 });
             }
         });
     });
-    router.get('/api/headlines', (req, res) => {
+    router.get('/api/headlines', function(req, res) {
         var query = {};
-        if (req.query.save) {
+        if (req.query.saved) {
             query = req.query;
         }
 
-        headlinesController.get(query, (data) => {
+        headlinesController.get(query, function(data) {
             res.json(data);
         });
     });
-    router.delete('/api/headlines/:id', (req, res) => {
+    router.delete('/api/headlines/:id', function(req, res) {
         var query = {};
         query._id = req.params.id;
-        headlinesController.delete(query, (err, data) => {
+        headlinesController.delete(query, function(err, data) {
             res.json(data);
         });
     });
-    router.patch('/api/headlines',(req, res) => {
-        headlinesController.update(req.body, (err, data) => {
+    router.patch('/api/headlines',function(req, res) {
+        headlinesController.update(req.body, function(err, data) {
             res.json(data);
         });
     });
-    router.get('/api/notes/:headline_id?', (req, res) => {
+    router.get('/api/notes/:headline_id?', function(req, res) {
         var query = {};
         if (req.params.headline_id) {
             query._id = req.params.headline_id;
         }
-        notesController.get(query, (err, data) => {
+        notesController.get(query, function(err, data) {
             res.json(data);
         });
     });
-    router.delete('/api/notes/:id', (req, res) => {
+    router.delete('/api/notes/:id', function(req, res) {
         var query = {};
         query._id = req.params.id;
-        notesController.delete(query, (err, data) => {
+        notesController.delete(query, function(err, data) {
             res.json(data);
         });
     });
-    router.post('/api/notes', (req, res) => {
-        notesController.save(req.body, (data) => {
+    router.post('/api/notes', function(req, res) {
+        notesController.save(req.body, function(data) {
             res.json(data);
         });
     });

@@ -1,22 +1,22 @@
 // notes controller
 
 var Note = require('../models/Note');
-var makeDate = require('../scripts/data');
+var makeDate = require('../scripts/date');
 
 module.exports = {
-    get: (data, cb) => {
+    get: function(data, cb){
         Note.find({
-            _headLineId: data._id
+            _headlineId: data._id
         }, cb);
     },
-    save: (data, cb) => {
+    save: function(data, cb){
         var newNote = {
-        _headlineID: data._id,
+        _headlineId: data._id,
         date: makeDate(),
         noteText: data.noteText
     };
 
-    Note.create(newNote, (err, doc) => s{
+    Note.create(newNote, function (err, doc) {
         if (err) {
             console.log(err);
         } else {
@@ -26,7 +26,7 @@ module.exports = {
     });
 
     },
-    delete: (data, cb) => {
+    delete: function(data, cb){
         Note.remove({
             _id: data._id
         }, cb);
